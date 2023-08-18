@@ -1,8 +1,32 @@
 import PropTypes from 'prop-types';
 import { Comment } from '../components';
+import { useState, useEffect } from 'react';
+import { getPosts } from '../api';
+import { Loader } from '../components';
 import styles from '../styles/home.module.css';
 
-const Home = ({ posts }) => {
+const Home = () => {
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fecthPost = async () => {
+      const response = await getPosts();
+      console.log(response);
+      if (response.success) {
+        setPosts(response.data.posts);
+      }
+
+      setLoading(false);
+    };
+
+    fecthPost();
+  }, []);
+
+  if (loading) {
+    return <Loader />;
+  }
+
   function getTimeDifferenceString(timestamp) {
     const currentTime = new Date();
     const createdAt = new Date(timestamp);
