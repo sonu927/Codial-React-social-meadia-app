@@ -44,7 +44,7 @@ const customFetch = async (url, { body, ...customConfig }) => {
   }
 };
 
-export const getPosts = (page = 1, limit = 5) => {
+export const getPosts = (page = 2, limit = 20) => {
   return customFetch(API_URLS.posts(page, limit), {
     method: 'GET',
   });
@@ -61,5 +61,12 @@ export const register = async (name, email, password, confirmPassword) => {
   return customFetch(API_URLS.signup(), {
     method: 'POST',
     body: { name, email, password, confirm_password: confirmPassword },
+  });
+};
+
+export const editProfile = async (userID, name, password, confirmPassword) => {
+  return customFetch(API_URLS.editUser(), {
+    method: 'POST',
+    body: { id: userID, name, password, confirm_password: confirmPassword },
   });
 };
