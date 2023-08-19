@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Outlet, Route, Routes } from 'react-router-dom';
 import { Home, Login, Signup, Settings } from '../pages';
 import { Loader, Navbar } from './';
 import { useAuth } from '../hooks';
@@ -8,6 +8,11 @@ import React from 'react';
 const Page404 = () => {
   return <h1>404</h1>;
 };
+
+function PrivateOutlet() {
+  const auth = useAuth();
+  return auth.user ? <Outlet /> : <Navigate to="/login" />;
+}
 
 function App() {
   const auth = useAuth();
@@ -24,10 +29,9 @@ function App() {
         <Route path="/" element={<Home posts={[]} />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Signup />} />
-        <Route
-          path="/settings"
-          element={auth.user ? <Settings /> : <Login />}
-        />
+        <Route path="/settings" element={<PrivateOutlet />}>
+          <Route path="" element={<Settings />} />
+        </Route>
         <Route path="*" element={<Page404 />} />
       </Routes>
     </div>
