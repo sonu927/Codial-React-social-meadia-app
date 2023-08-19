@@ -1,5 +1,5 @@
 import { Navigate, Outlet, Route, Routes } from 'react-router-dom';
-import { Home, Login, Signup, Settings } from '../pages';
+import { Home, Login, Signup, Settings, UserProfile } from '../pages';
 import { Loader, Navbar } from './';
 import { useAuth } from '../hooks';
 
@@ -31,6 +31,9 @@ function App() {
         <Route path="/register" element={<Signup />} />
         <Route path="/settings" element={<PrivateOutlet />}>
           <Route path="" element={<Settings />} />
+        </Route>
+        <Route path="/user/:userID" element={<PrivateOutlet />}>
+          <Route path="" element={<UserProfile />} />
         </Route>
         <Route path="*" element={<Page404 />} />
       </Routes>
