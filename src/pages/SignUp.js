@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -15,6 +15,12 @@ const Signup = () => {
 
   const auth = useAuth();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (auth.user) {
+      navigate('/');
+    }
+  }, [auth.user, navigate]);
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();

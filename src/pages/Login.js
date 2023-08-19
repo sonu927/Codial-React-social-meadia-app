@@ -1,6 +1,6 @@
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styles from '../styles/login.module.css';
 import { useAuth } from '../hooks';
 import { useNavigate } from 'react-router-dom';
@@ -12,6 +12,12 @@ const Login = () => {
   const [loggingIn, setLoggingIn] = useState(false);
   const auth = useAuth();
   console.log(auth);
+
+  useEffect(() => {
+    if (auth.user) {
+      navigate('/');
+    }
+  }, [auth.user, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -41,6 +47,7 @@ const Login = () => {
 
     setLoggingIn(false);
   };
+
   return (
     <>
       <form className={styles.loginForm} onSubmit={handleSubmit}>
