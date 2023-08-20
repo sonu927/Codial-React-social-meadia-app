@@ -16,7 +16,7 @@ function PrivateOutlet() {
 
 function App() {
   const auth = useAuth();
-  console.log(auth.user);
+  console.log(auth);
   //if(auth.loading){}
   if (auth.loading) {
     return <Loader />;

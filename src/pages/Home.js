@@ -60,8 +60,13 @@ const Home = () => {
                   alt="user-pic"
                 />
                 <div>
+                  {/* {console.log('post.user :', post.user)} */}
                   <Link
                     to={`/user/${post.user._id}`}
+                    state={{
+                      user: post.user,
+                      // userEmail: post.user.email,
+                    }}
                     className={styles.postAuthor}
                   >
                     {post.user.name}
