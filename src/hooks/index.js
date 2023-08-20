@@ -167,9 +167,21 @@ export const useProvidePosts = () => {
     setPosts(newPosts);
   };
 
+  const addCommentToState = (postID, comment) => {
+    const newPosts = posts.map((post) => {
+      if (post._id === postID) {
+        return { ...post, comments: [...post.comments, comment] };
+      }
+      return post;
+    });
+
+    setPosts(newPosts);
+  };
+
   return {
     data: posts,
     loading,
     addPostsToState,
+    addCommentToState,
   };
 };
